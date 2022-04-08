@@ -1,0 +1,113 @@
+﻿axial_appendicular,region,subregion,name,numerical_identifier,positional_identifier
+axial,skull,cranium,nasal,,
+axial,skull,cranium,lacrimal,,
+axial,skull,cranium,inferior nasal concha,,
+axial,skull,cranium,maxiallary,,
+axial,skull,cranium,zygomatic,,
+axial,skull,cranium,temporal,,
+axial,skull,cranium,palatine,,
+axial,skull,cranium,parietal,,
+axial,skull,middle ear,malleus,,
+axial,skull,middle ear,incus,,
+axial,skull,middle ear,stapes,,
+axial,skull,cranium,frontal,,
+axial,skull,cranium,ethmoid,,
+axial,skull,cranium,vomer,,
+axial,skull,cranium,sphenoid,,
+axial,skull,mandible,mandible,,
+axial,skull,cranium,occipital,,
+axial,skull,cranium,cranium,,
+axial,thorax,ribs,rib,,
+axial,thorax,hyoid,hyoid,,
+axial,thorax,sternum,sternum,,
+axial,thorax,vertebral column,cervical vertebra,,
+axial,thorax,vertebral column,thoracic vertebra,,
+axial,thorax,vertebral column,lumbar vertebra,,
+axial,thorax,vertebral column,sacrum,,
+axial,thorax,vertebral column,coccyx,,
+axial,thorax,vertebral column,caudal vertebra,,
+appendicular,forelimb,shoulder girdle,scapula,,
+appendicular,forelimb,shoulder girdle,clavicle,,
+appendicular,forelimb,proximal forelimb,humerus,,
+appendicular,forelimb,distal forelimb,radius,,
+appendicular,forelimb,distal forelimb,ulna,,
+appendicular,forelimb,wrist,scaphoid (naviculare/radiale),,
+appendicular,forelimb,wrist,lunate (lunar/semilunare),,
+appendicular,forelimb,wrist,triquetral (cuneiform/pyrimidale/ulnare),,
+appendicular,forelimb,wrist,pisiform,,
+appendicular,forelimb,wrist,hamate (unciform),,
+appendicular,forelimb,wrist,capitate (magnum),,
+appendicular,forelimb,wrist,trapezoid (lesser multiangular),,
+appendicular,forelimb,wrist,trapezium (greater multiangular),,
+appendicular,hindlimb,pelvic girdle,os coxa,,
+appendicular,hindlimb,proximal hindlimb,femur,,
+appendicular,hindlimb,distal hindlimb,patella,,
+appendicular,hindlimb,distal hindlimb,tibia,,
+appendicular,hindlimb,distal hindlimb,fibula,,
+appendicular,hindlimb,ankle,talus (astragalus),,
+appendicular,hindlimb,ankle,calcaneus,,
+appendicular,hindlimb,ankle,navicular (centrale),,
+appendicular,hindlimb,ankle,medial cuneiform,,
+appendicular,hindlimb,ankle,middle cuneiform,,
+appendicular,hindlimb,ankle,lateral cuneiform,,
+appendicular,hindlimb,ankle,cuboid (cuboideum),,
+appendicular,hindlimb,pes (foot),metatarsal,1,proximal
+appendicular,hindlimb,pes (foot),metatarsal,2,proximal
+appendicular,hindlimb,pes (foot),metatarsal,3,proximal
+appendicular,hindlimb,pes (foot),metatarsal,4,proximal
+appendicular,hindlimb,pes (foot),metatarsal,5,proximal
+appendicular,hindlimb,pes (foot),metatarsal,1,intermediate
+appendicular,hindlimb,pes (foot),metatarsal,2,intermediate
+appendicular,hindlimb,pes (foot),metatarsal,3,intermediate
+appendicular,hindlimb,pes (foot),metatarsal,4,intermediate
+appendicular,hindlimb,pes (foot),metatarsal,5,intermediate
+appendicular,hindlimb,pes (foot),metatarsal,1,distal
+appendicular,hindlimb,pes (foot),metatarsal,2,distal
+appendicular,hindlimb,pes (foot),metatarsal,3,distal
+appendicular,hindlimb,pes (foot),metatarsal,4,distal
+appendicular,hindlimb,pes (foot),metatarsal,5,distal
+appendicular,hindlimb,pes (foot),phalanx,1,proximal
+appendicular,hindlimb,pes (foot),phalanx,2,proximal
+appendicular,hindlimb,pes (foot),phalanx,3,proximal
+appendicular,hindlimb,pes (foot),phalanx,4,proximal
+appendicular,hindlimb,pes (foot),phalanx,5,proximal
+appendicular,hindlimb,pes (foot),phalanx,1,intermediate
+appendicular,hindlimb,pes (foot),phalanx,2,intermediate
+appendicular,hindlimb,pes (foot),phalanx,3,intermediate
+appendicular,hindlimb,pes (foot),phalanx,4,intermediate
+appendicular,hindlimb,pes (foot),phalanx,5,intermediate
+appendicular,hindlimb,pes (foot),phalanx,1,distal
+appendicular,hindlimb,pes (foot),phalanx,2,distal
+appendicular,hindlimb,pes (foot),phalanx,3,distal
+appendicular,hindlimb,pes (foot),phalanx,4,distal
+appendicular,hindlimb,pes (foot),phalanx,5,distal
+appendicular,forelimb,manus (hand),metacarpal,1,proximal
+appendicular,forelimb,manus (hand),metacarpal,2,proximal
+appendicular,forelimb,manus (hand),metacarpal,3,proximal
+appendicular,forelimb,manus (hand),metacarpal,4,proximal
+appendicular,forelimb,manus (hand),metacarpal,5,proximal
+appendicular,forelimb,manus (hand),metacarpal,1,intermediate
+appendicular,forelimb,manus (hand),metacarpal,2,intermediate
+appendicular,forelimb,manus (hand),metacarpal,3,intermediate
+appendicular,forelimb,manus (hand),metacarpal,4,intermediate
+appendicular,forelimb,manus (hand),metacarpal,5,intermediate
+appendicular,forelimb,manus (hand),metacarpal,1,distal
+appendicular,forelimb,manus (hand),metacarpal,2,distal
+appendicular,forelimb,manus (hand),metacarpal,3,distal
+appendicular,forelimb,manus (hand),metacarpal,4,distal
+appendicular,forelimb,manus (hand),metacarpal,5,distal
+appendicular,forelimb,manus (hand),phalanx,1,proximal
+appendicular,forelimb,manus (hand),phalanx,2,proximal
+appendicular,forelimb,manus (hand),phalanx,3,proximal
+appendicular,forelimb,manus (hand),phalanx,4,proximal
+appendicular,forelimb,manus (hand),phalanx,5,proximal
+appendicular,forelimb,manus (hand),phalanx,1,intermediate
+appendicular,forelimb,manus (hand),phalanx,2,intermediate
+appendicular,forelimb,manus (hand),phalanx,3,intermediate
+appendicular,forelimb,manus (hand),phalanx,4,intermediate
+appendicular,forelimb,manus (hand),phalanx,5,intermediate
+appendicular,forelimb,manus (hand),phalanx,1,distal
+appendicular,forelimb,manus (hand),phalanx,2,distal
+appendicular,forelimb,manus (hand),phalanx,3,distal
+appendicular,forelimb,manus (hand),phalanx,4,distal
+appendicular,forelimb,manus (hand),phalanx,5,distal
