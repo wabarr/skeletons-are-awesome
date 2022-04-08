@@ -1,6 +1,6 @@
 from django.db import models
 from .choices_taxonomy import *
-from django.utils.encoding import smart_text
+from django.utils.encoding import smart_str
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from django.core.exceptions import NON_FIELD_ERRORS
 from django.core.exceptions import ValidationError
@@ -89,7 +89,7 @@ class Taxon(models.Model):
             name = self.genus + " (" + self.taxonRank + ")"
         # special case for things like Alcelaphini sp. large of Reed 2008
         elif str(self.taxonRank).lower() == 'species' and self.genus == "":
-            name = smart_text(self.tribe) + " " + smart_text(self.species) + " (" + smart_text(self.taxonRank) + ")"
+            name = smart_str(self.tribe) + " " + smart_str(self.species) + " (" + smart_str(self.taxonRank) + ")"
         elif str(self.taxonRank).lower() == 'species':
             name = self.genus + " " + self.species + " (" + self.taxonRank + ")"
         elif str(self.taxonRank).lower() == 'subspecies':
@@ -101,9 +101,9 @@ class Taxon(models.Model):
             name = self.identificationQualifier + " " + name
 
         if not self.extant:
-            name = smart_text(name) + " **"
+            name = smart_str(name) + " **"
 
-        return smart_text(name)
+        return smart_str(name)
 
     def validate_implied_taxon(self, rankString, **kwargs):
         modelFieldNames = [key for key in kwargs.keys()]
