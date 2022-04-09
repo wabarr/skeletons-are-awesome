@@ -5,6 +5,15 @@ from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from django.core.exceptions import NON_FIELD_ERRORS
 from django.core.exceptions import ValidationError
 
+
+class Scanner(models.Model):
+    manufacturer = models.CharField(max_length=100)
+    model = models.CharField(max_length=100)
+    nickname = models.CharField(max_length=100, blank=True)
+
+    def __str__(self):
+        return "{} ({} {})".format(self.nickname, self.manufacturer,  self.model)
+
 class Reference(models.Model):
     authorshortstring = models.CharField(max_length=100, help_text="Author name as it would appear in an in-text citation.")
     year = models.IntegerField()
@@ -185,4 +194,12 @@ class Skeleton(models.Model):
         return "{}-{}-{}".format(self.repository,self.collection_code,self.specimen_number).replace("--","-")
 
 class Specimen(models.Model):
+    SIDES = models.TextChoices('side', 'left right')
     skeleton = models.ForeignKey(Skeleton, on_delete=models.CASCADE)
+    element = models.ForeignKey(Element, on_delete=models.CASCADE)
+    side = models.CharField(max_length=100, blank=True, choices=SIDES.choices)
+    specimen_label = models.CharField(max_length=100, blank=True, help_text="identifying label physically inked on specimen")
+    scan_filename = models.CharField(max_length=200, blank=True)
+    scanned_by = models.CharField(max_length=100, help_text="the name of the person who did the scan")
+    date_scanned = models.DateField(blank=True, null=True)
+    machine = models.ForeignKey(Scanner, on_delete=models.CASCADE, help_text="the scanner used to make the scan")

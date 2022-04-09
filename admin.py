@@ -9,11 +9,16 @@ class SkeletonAdmin(admin.ModelAdmin):
     form = make_ajax_form(Skeleton,{'taxon':"taxa"})
 
 
+class ScannerAdmin(admin.ModelAdmin):
+    fields = ['manufacturer','model','nickname']
+
 class RepositoryAdmin(admin.ModelAdmin):
     fields = ['code','full_name', 'notes']
 
 class SpecimenAdmin(admin.ModelAdmin):
-    fields = ['skeleton']
+    fields = ['skeleton','element','side','specimen_label','scan_filename','scanned_by','date_scanned','machine']
+    list_display = fields
+    form = make_ajax_form(Specimen, {'element': "elements"})
 
 class ElementAdmin(admin.ModelAdmin):
     fields = ['name', 'region', 'subregion', 'axial_appendicular','positional_identifier','numerical_identifier']
@@ -36,6 +41,7 @@ class ReferenceAdmin(admin.ModelAdmin):
     list_editable = ["year"]
 
 admin.site.register(Skeleton, SkeletonAdmin)
+admin.site.register(Scanner, ScannerAdmin)
 admin.site.register(Specimen, SpecimenAdmin)
 admin.site.register(Repository, RepositoryAdmin)
 admin.site.register(Element, ElementAdmin)

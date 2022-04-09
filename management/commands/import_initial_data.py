@@ -1,9 +1,14 @@
 from django.core.management.base import BaseCommand
 import csv
-from skeletons.models import Element, Reference, Taxon
+from skeletons.models import Element, Reference, Taxon, Scanner
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
+        Scanner.objects.get_or_create(
+            manufacturer="Einscan",
+            model="Pro",
+            nickname="Scanner #1"
+        )
         with open("./skeletons/fixtures/elements.csv", mode="r", encoding='utf-8-sig') as f:
             reader = csv.DictReader(f)
             for row in reader:
