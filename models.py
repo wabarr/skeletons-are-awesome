@@ -193,6 +193,11 @@ class Skeleton(models.Model):
     def __str__(self):
         return "{}-{}-{}".format(self.repository,self.collection_code,self.specimen_number).replace("--","-")
 
+    class Meta:
+        constraints=[
+            models.UniqueConstraint(fields=['repository', 'collection_code', 'specimen_number'], name="unique skeleton")
+            ]
+
 class Specimen(models.Model):
     SIDES = models.TextChoices('side', 'left right')
     skeleton = models.ForeignKey(Skeleton, on_delete=models.CASCADE)
