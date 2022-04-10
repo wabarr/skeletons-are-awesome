@@ -19,8 +19,11 @@ from django.conf.urls import include
 from . import views
 from ajax_select import urls as ajax_select_urls
 
+
 urlpatterns = [
-    path('', views.home, name='home'),
+    path('', views.SkeletonListView.as_view(),name='home-skeleton-detail'),
     path('ajax_select/', include(ajax_select_urls)),
-    path('admin/', admin.site.urls),
+    path('skeletons/', views.SkeletonListView.as_view(), name='skeleton-list'),
+    path('specimen/<int:pk>/', views.SpecimenDetailView.as_view(),name='specimen-detail'),
+    path('admin/', admin.site.urls)
 ]
