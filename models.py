@@ -100,9 +100,9 @@ class Taxon(models.Model):
         elif str(self.taxonRank).lower() == 'species' and self.genus == "":
             name = smart_str(self.tribe) + " " + smart_str(self.species) + " (" + smart_str(self.taxonRank) + ")"
         elif str(self.taxonRank).lower() == 'species':
-            name = self.genus + " " + self.species + " (" + self.taxonRank + ")"
+            name = self.genus + " " + self.species
         elif str(self.taxonRank).lower() == 'subspecies':
-            name = self.genus + " " + self.species + " " + self.infraspecificEpithet + " (" + self.taxonRank + ")"
+            name = self.genus + " " + self.species + " " + self.infraspecificEpithet
         else:
             name = " (" + self.taxonRank + ")"
 
@@ -110,9 +110,10 @@ class Taxon(models.Model):
             name = self.identificationQualifier + " " + name
 
         if not self.extant:
-            name = smart_str(name) + " **"
+            name = smart_str(name) + " 	\u271E"
 
         return smart_str(name)
+
 
     def validate_implied_taxon(self, rankString, **kwargs):
         modelFieldNames = [key for key in kwargs.keys()]
