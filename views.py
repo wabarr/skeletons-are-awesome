@@ -7,7 +7,7 @@ def home(request):
 
 class SkeletonListView(ListView):
     model = Skeleton
-    paginate_by = 50
+    paginate_by = 25
 
     def get_queryset(self):
         filters = {}

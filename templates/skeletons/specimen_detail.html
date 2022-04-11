@@ -5,7 +5,9 @@
 <div class="container">
 		  <div class="card">
 			  <div class="card-body">
-                  <h3 class="card-title">{{ object.skeleton }} - {{ object }}</h3>
+                  <h3 class="card-title">{{ object.skeleton }}</h3>
+                  <h4>{{ object }}</h4>
+                  <h4>{% if object.skeleton.taxon.taxonRank in 'species,subspecies' %}<i>{% endif %}{{ object.skeleton.taxon }}{% if object.skeleton.taxon.taxonRank in 'species,subspecies' %}</i>{% endif %}</h4>
                   <model-viewer src="https://dl.dropboxusercontent.com/s/{{ object.dropbox_glb_file_path }}" alt="3D model of {{ object.taxon }} {{ object }}" shadow-intensity="1" camera-controls="" auto-rotate="" ar="" data-js-focus-visible="" ar-status="not-presenting" mode="no-cors" >
 				</model-viewer>
 		  </div>
