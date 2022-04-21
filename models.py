@@ -186,12 +186,12 @@ class Taxon(models.Model):
 
 
 class Skeleton(models.Model):
-    SEXES = models.TextChoices('sex','female male unknown')
+    SEXES = [('female', 'Female'), ('male', 'Male'), ('sex unknown', 'Sex Unknown')]
     repository = models.ForeignKey(Repository, on_delete=models.CASCADE)
     collection_code = models.CharField(max_length=100, blank=True)
     specimen_number = models.PositiveIntegerField()
     taxon = models.ForeignKey(Taxon, on_delete=models.CASCADE)
-    sex = models.CharField(max_length=50, blank=False, default='unknown', choices=SEXES.choices)
+    sex = models.CharField(max_length=50, blank=False, default='sex unknown', choices=SEXES)
 
     def __str__(self):
         return "{}-{}-{}".format(self.repository,self.collection_code,self.specimen_number).replace("--","-")
@@ -215,3 +215,17 @@ class Specimen(models.Model):
 
     def __str__(self):
         return("{} {}".format(self.side, self.element))
+
+
+    def filename(self):
+        fname = "_".join([self.skeleton.repository.code,
+                          self.skeleton.collection_code,
+                          str(self.skeleton.specimen_number),
+                          self.skeleton.taxon.genus,
+                          self.skeleton.taxon.species,
+                          self.skeleton.sex,
+                          self.element.__str__(),
+                          self.side
+                          ]
+                         )
+        return(fname.replace("__","_"))

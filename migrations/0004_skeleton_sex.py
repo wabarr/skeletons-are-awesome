@@ -13,6 +13,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='skeleton',
             name='sex',
-            field=models.CharField(choices=[('female', 'Female'), ('male', 'Male'), ('unknown', 'Unknown')], default='unknown', max_length=50),
+            field=models.CharField(choices=[('female', 'Female'), ('male', 'Male'), ('sex unknown', 'Sex Unknown')], default='sex unknown', max_length=50),
         ),
     ]
