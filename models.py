@@ -186,10 +186,12 @@ class Taxon(models.Model):
 
 
 class Skeleton(models.Model):
+    SEXES = models.TextChoices('sex','female male unknown')
     repository = models.ForeignKey(Repository, on_delete=models.CASCADE)
     collection_code = models.CharField(max_length=100, blank=True)
     specimen_number = models.PositiveIntegerField()
     taxon = models.ForeignKey(Taxon, on_delete=models.CASCADE)
+    sex = models.CharField(max_length=50, blank=False, default='unknown', choices=SEXES.choices)
 
     def __str__(self):
         return "{}-{}-{}".format(self.repository,self.collection_code,self.specimen_number).replace("--","-")
