@@ -1,13 +1,18 @@
 from django.shortcuts import  render
 from django.views.generic import ListView, DetailView
 from .models import Skeleton, Specimen
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
+
+@login_required(login_url="/admin/login/")
 def home(request):
     return render(request, 'skeletons/home.html', {})
 
-class SkeletonListView(ListView):
+class SkeletonListView(LoginRequiredMixin,ListView):
     model = Skeleton
     paginate_by = 25
+    login_url = "/admin/login/"
 
     def get_queryset(self):
         filters = {}
@@ -40,5 +45,6 @@ class SkeletonListView(ListView):
         context["genus"] = Skeleton.objects.values('taxon__genus').distinct()
         return(context)
 
-class SpecimenDetailView(DetailView):
+class SpecimenDetailView(LoginRequiredMixin,DetailView):
     model = Specimen
+    login_url = "/admin/login/"
