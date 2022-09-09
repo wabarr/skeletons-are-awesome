@@ -6,6 +6,7 @@ from ajax_select import make_ajax_form
 
 class SkeletonAdmin(admin.ModelAdmin):
     fields = ['repository', 'collection_code', 'specimen_number', 'taxon','sex','notes']
+    list_display = ['__str__','taxon','sex','notes']
     form = make_ajax_form(Skeleton,{'taxon':"taxa"})
 
 
