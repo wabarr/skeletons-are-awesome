@@ -21,7 +21,7 @@ from ajax_select import urls as ajax_select_urls
 
 
 urlpatterns = [
-    path('', views.SkeletonListView.as_view(),name='home-skeleton-detail'),
+    path('', views.grid),
     path('ajax_select/', include(ajax_select_urls)),
     path('grid/', views.grid),
     path('skeletons/', views.SkeletonListView.as_view(), name='skeleton-list'),
