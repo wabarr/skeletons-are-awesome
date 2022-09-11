@@ -9,6 +9,14 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 def home(request):
     return render(request, 'skeletons/home.html', {})
 
+def grid(request):
+    context = {}
+    context['glbs'] = Specimen.objects.exclude(dropbox_glb_file_path__exact="").order_by("?")[:3]
+    return render(request,
+                  'skeletons/grid.html',
+                  context=context
+    )
+
 class SkeletonListView(LoginRequiredMixin,ListView):
     model = Skeleton
     paginate_by = 25
