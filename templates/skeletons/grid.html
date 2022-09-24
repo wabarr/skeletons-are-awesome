@@ -3,21 +3,67 @@
 {% block content %}
 
 <div class="container">
-<div class="row">
-{% for object in glbs %}
-    <div class="col-sm-3">
-		  <div class="card">
-			  <div class="card-body">
-                  <h3 class="card-title"></h3>
-				<model-viewer  src="https://dl.dropboxusercontent.com/s/{{ object.dropbox_glb_file_path }} alt="3D model of {{ object.taxon }} {{ object }} shadow-intensity="1" camera-controls="" auto-rotate="" ar="" data-js-focus-visible="" ar-status="not-presenting" mode="no-cors" >
-				</model-viewer>
-              <a href="/specimen/{{ object.pk }}/">?</a>
-		    </div>
-	    </div>
-    </div>
+<div class="row" id="row-contains-everything">
+    <div class="col-md-8" id="col-contains-grid">
+    <div class="row">
+    {% for object in glbs %}
+        <div class="col-sm-4">
+		      <div class="card">
+			      <div class="card-body">
+                      <p class="card-title"><i>{{ object.skeleton.taxon }}</i></p>
+                      <p>{{ object.skeleton }}</p>
+                      <p>{{ object }}</p>
+                      <button class="expand"
+                         data-id="{{ object.pk }}"
+                         data-taxon="{{ object.skeleton.taxon }}"
+                         data-skeleton="{{ object.skeleton }}"
+                         data-url="{{ object.dropbox_glb_file_path }}">View Model</button>
+                  </div>
+              </div>
+        </div>
+        {% if forloop.counter|divisibleby:3 %}</div><div class="row">{% endif %}
 {% endfor %}
-</div>
-</div>
+    </div>
+    </div><!-- closes col-contains-grid -->
+    <div class="col-sm-4" id="viewer-col">
+        <div class="card">
+            <div class="card-body" id="viewer-card-body">
+                <p class="card-title" id="viewer-placeholder-text">Click an object to view</i></p>
+                <span id="insert-modelviewer-here"></span>
+            </div>
+        </div>
+    </div>
+</div> <!-- closes row-contains-everything -->
+</div> <!-- closes container -->
 
 
+
+
+
+{% endblock %}
+
+{% block custom_script %}
+<script>
+
+function scrollIntoViewIfNeeded(target) {
+    if (target.getBoundingClientRect().bottom > window.innerHeight) {
+        target.scrollIntoView(false);
+    }
+
+    if (target.getBoundingClientRect().top < 0) {
+        target.scrollIntoView();
+    }
+}
+
+    $( ".expand" ).click(function() {
+        $("#viewer-placeholder-text").remove();
+        $("model-viewer").remove();
+        $('.card').css("border", "")
+        var URL =  "https://dl.dropboxusercontent.com/s/" + $(this).attr('data-url');
+        $("#insert-modelviewer-here").before("<model-viewer  src='" + URL + "' alt='3D model of bone' shadow-intensity='1' camera-controls='' auto-rotate='' ar='' data-js-focus-visible='' ar-status='not-presenting' mode='no-cors'></model-viewer>");
+        $(this).closest('.card').css("border-color", "blue");
+        scrollIntoViewIfNeeded($("model-viewer")[0]);
+
+    });
+</script>
 {% endblock %}

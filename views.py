@@ -11,7 +11,7 @@ def home(request):
 
 def grid(request):
     context = {}
-    context['glbs'] = Specimen.objects.exclude(dropbox_glb_file_path__exact="").order_by("?")[:3]
+    context['glbs'] = Specimen.objects.exclude(dropbox_glb_file_path__exact="").order_by("skeleton__taxon")
     return render(request,
                   'skeletons/grid.html',
                   context=context
