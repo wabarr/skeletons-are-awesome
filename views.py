@@ -11,7 +11,7 @@ from django.contrib.auth import logout
 class Grid(LoginRequiredMixin, ListView):
     template_name = 'skeletons/grid.html'
     queryset = Specimen.objects.exclude(dropbox_glb_file_path__exact="").order_by("skeleton__taxon")
-    paginate_by = 3
+    paginate_by = 18
 
 
 class SkeletonListView(LoginRequiredMixin,ListView):
