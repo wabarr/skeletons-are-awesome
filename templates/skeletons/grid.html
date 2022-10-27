@@ -6,7 +6,7 @@
 <div class="row" id="row-contains-everything">
     <div class="col-md-8" id="col-contains-grid">
     <div class="row">
-    {% for object in glbs %}
+    {% for object in object_list %}
         <div class="col-sm-4">
 		      <div class="card">
 			      <div class="card-body">
@@ -34,6 +34,7 @@
         </div>
     </div>
 </div> <!-- closes row-contains-everything -->
+{% if paginator %} {% include "skeletons/pagination.html" %}{% endif %}
 </div> <!-- closes container -->
 
 

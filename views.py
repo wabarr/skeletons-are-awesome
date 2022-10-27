@@ -1,26 +1,22 @@
 from django.shortcuts import  render
 from django.views.generic import ListView, DetailView
 from .models import Skeleton, Specimen
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import HttpResponseRedirect
+from django.contrib.auth import logout
 
 
-@login_required(login_url="/admin/login/")
-def home(request):
-    return render(request, 'skeletons/home.html', {})
 
-def grid(request):
-    context = {}
-    context['glbs'] = Specimen.objects.exclude(dropbox_glb_file_path__exact="").order_by("skeleton__taxon")
-    return render(request,
-                  'skeletons/grid.html',
-                  context=context
-    )
+
+class Grid(LoginRequiredMixin, ListView):
+    template_name = 'skeletons/grid.html'
+    queryset = Specimen.objects.exclude(dropbox_glb_file_path__exact="").order_by("skeleton__taxon")
+    paginate_by = 3
+
 
 class SkeletonListView(LoginRequiredMixin,ListView):
     model = Skeleton
     paginate_by = 25
-    login_url = "/admin/login/"
 
     def get_queryset(self):
         filters = {}
@@ -55,4 +51,7 @@ class SkeletonListView(LoginRequiredMixin,ListView):
 
 class SpecimenDetailView(LoginRequiredMixin,DetailView):
     model = Specimen
-    login_url = "/admin/login/"
+
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect("/")

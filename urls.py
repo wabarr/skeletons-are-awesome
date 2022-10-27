@@ -18,13 +18,16 @@ from django.urls import path
 from django.conf.urls import include
 from . import views
 from ajax_select import urls as ajax_select_urls
+from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
-    path('', views.grid),
+    path('', views.Grid.as_view()),
     path('ajax_select/', include(ajax_select_urls)),
-    path('grid/', views.grid),
+    path('grid/', views.Grid.as_view()),
     path('skeletons/', views.SkeletonListView.as_view(), name='skeleton-list'),
     path('specimen/<int:pk>/', views.SpecimenDetailView.as_view(),name='specimen-detail'),
+    path('accounts/login/', auth_views.LoginView.as_view()),
+    path('logout/', views.logout_view),
     path('admin/', admin.site.urls)
 ]
