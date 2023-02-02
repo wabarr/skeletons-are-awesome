@@ -13,6 +13,9 @@
                         {% for specimen in skeleton.specimen_set.iterator %}
                             <a href={% url 'specimen-detail' specimen.id %}>{{ specimen }}</a>
                         {% endfor %}
+                        {% if skeleton.specimen_set.count == 0 %}
+                            <p>There are no scans of this individual yet. </p>
+                        {% endif %}
 		                </div>
                     </div>
                 {%  endfor %}
@@ -24,25 +27,25 @@
             <h4>Order</h4>
             <ul>
                 {% for ord in orders %}
-                  <li><a href="/?order={{ ord.taxon__order }}">{{ ord.taxon__order }}</a></li>
+                  <li><a href="?order={{ ord.taxon__order }}">{{ ord.taxon__order }}</a></li>
               {% endfor %}
             </ul>
             <h4>Family</h4>
             <ul>
                 {% for fam in family %}
-                  <li><a href="/?family={{ fam.taxon__family }}">{{ fam.taxon__family }}</a></li>
+                  <li><a href="?family={{ fam.taxon__family }}">{{ fam.taxon__family }}</a></li>
               {% endfor %}
             </ul>
             <h4>Tribe</h4>
             <ul>
                 {% for trib in tribe %}
-                  <li><a href="/?tribe={{ trib.taxon__tribe }}">{{ trib.taxon__tribe }}</a></li>
+                  <li><a href="?tribe={{ trib.taxon__tribe }}">{{ trib.taxon__tribe }}</a></li>
               {% endfor %}
             </ul>
             <h4>Genus</h4>
             <ul>
                 {% for gen in genus %}
-                  <li><a href="/?genus={{ gen.taxon__genus }}"><i>{{ gen.taxon__genus }}</i></a></li>
+                  <li><a href="?genus={{ gen.taxon__genus }}"><i>{{ gen.taxon__genus }}</i></a></li>
               {% endfor %}
             </ul>
 
