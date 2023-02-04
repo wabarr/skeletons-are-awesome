@@ -7,8 +7,10 @@ from ajax_select import make_ajax_form
 class SkeletonAdmin(admin.ModelAdmin):
     fields = ['repository', 'collection_code', 'specimen_number', 'taxon','sex','notes']
     list_display = ['__str__','taxon','sex','notes']
+    search_fields = ["specimen_number","taxon__genus", "taxon__species", "taxon__order", "taxon__family", "taxon__subfamily", "taxon__tribe"]
     form = make_ajax_form(Skeleton,{'taxon':"taxa"})
-
+    search_help_text = "Search by specimen number or taxon"
+    list_filter = ["repository"]
 
 class ScannerAdmin(admin.ModelAdmin):
     fields = ['manufacturer','model','nickname']
@@ -21,12 +23,16 @@ class SpecimenAdmin(admin.ModelAdmin):
     list_display = fields
     readonly_fields = ['filename']
     form = make_ajax_form(Specimen, {'element': "elements"})
+    list_filter = ["side","skeleton__repository"]
+    search_fields = ["skeleton__specimen_number","element__name","skeleton__taxon__genus", "skeleton__taxon__species", "skeleton__taxon__order", "skeleton__taxon__family", "skeleton__taxon__subfamily", "skeleton__taxon__tribe"]
+    search_help_text = "Search by specimen number, element, or taxon"
 
 class ElementAdmin(admin.ModelAdmin):
     fields = ['name', 'region', 'subregion', 'axial_appendicular','positional_identifier','numerical_identifier']
     list_display = ['__str__', 'region', 'subregion', 'axial_appendicular']
     list_display_links = ["__str__"]
     search_fields = ["name", "positional_identifier", "numerical_identifier"]
+    list_filter = ["region", "subregion", "axial_appendicular"]
 
 class TaxonAdmin(admin.ModelAdmin):
     list_display = ['__str__','order','family','tribe','genus','species','ref','extant']

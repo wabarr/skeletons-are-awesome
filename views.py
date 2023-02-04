@@ -4,14 +4,31 @@ from .models import Skeleton, Specimen
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import HttpResponseRedirect
 from django.contrib.auth import logout
+from django.views.generic.edit import FormView
+from skeletons.forms import SpecimenFormForAJAXselect
+from django.http import JsonResponse
+from skeletons.models import Specimen
 
 
+def getGLBurl(request, pk):
+    # this is a simple JSON url which returns the GLB file url for a given pk
+    # it is used by the search.html template to convert the pk from the ajax_select query
+    #into the GLB file path needed to populate the 3D model viewer
+    ob = Specimen.objects.get(pk=pk)
+    if ob.dropbox_glb_file_path:
+        return JsonResponse({"url":ob.dropbox_glb_file_path})
+    else:
+        return JsonResponse({"error":"Can't find the link to the scan file"})
 
 
 class Grid(LoginRequiredMixin, ListView):
     template_name = 'skeletons/grid.html'
     queryset = Specimen.objects.exclude(dropbox_glb_file_path__exact="").order_by("skeleton__taxon")
     paginate_by = 18
+
+class Search(LoginRequiredMixin, FormView):
+    template_name = 'skeletons/search.html'
+    form_class = SpecimenFormForAJAXselect
 
 
 class SkeletonListView(LoginRequiredMixin,ListView):

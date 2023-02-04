@@ -1,0 +1,90 @@
+{% extends "skeletons/base.html" %}
+{% block extrastyle %}
+    <style>
+        #viewer-card {
+            border: none;
+        }
+        .error {
+            background-color: #ffb3ad;
+            padding: 10px;
+        }
+
+    </style>
+
+{% endblock %}
+{% block content %}
+
+<div class="container">
+<div class="row">
+    <div class="col"><h3>What kind of bones are you looking for?</h3></div>
+</div>
+<div class="row" id="row-contains-everything">
+    <div class="col-md-8" id="col-contains-searchbar">
+
+        {{ form.media }}
+        {{ form.search_by_name }}
+
+    </div>
+        <div class="col-sm-4" id="viewer-col">
+        <div class="card" id="viewer-card">
+            <div class="card-body" id="viewer-card-body">
+
+                <span id="insert-modelviewer-here"></span>
+            </div>
+        </div>
+    </div>
+</div> <!-- closes row-contains-everything -->
+{% if paginator %} {% include "skeletons/pagination.html" %}{% endif %}
+</div> <!-- closes container -->
+
+
+
+
+
+{% endblock %}
+
+{% block custom_script %}
+<script>
+
+
+
+function scrollIntoViewIfNeeded(target) {
+    if (target.getBoundingClientRect().bottom > window.innerHeight) {
+        target.scrollIntoView(false);
+    }
+
+    if (target.getBoundingClientRect().top < 0) {
+        target.scrollIntoView();
+    }
+}
+    $("#id_search_by_name_text").css("width", "100%").attr("placeholder", "Search by taxon, element, specimen ID");
+
+    $("#id_search_by_name_on_deck").bind('added', function() {
+        var id = $("#id_search_by_name").val();
+        $(".error").remove();
+        $("model-viewer").remove();
+
+        $.ajax({
+            //use AJAX to call the getGLBurl view to covert pk into a GLB URL
+            method: "GET",
+            url: "/getGLB_url_for_pk/".concat(id),
+        })
+        .done(function( data ) {
+            console.log(data);
+            if ("error" in data) {
+                $("#insert-modelviewer-here").before("<p class='error'>" + data["error"] + "</p>");
+                scrollIntoViewIfNeeded($("model-viewer")[0]);
+            } else {
+                var URL =  "https://dl.dropboxusercontent.com/s/".concat(data["url"]);
+                $("#insert-modelviewer-here").before("<model-viewer  src='" + URL + "' alt='3D model of bone' shadow-intensity='1' camera-controls='' auto-rotate='' ar='' data-js-focus-visible='' ar-status='not-presenting' mode='no-cors'></model-viewer>");
+                scrollIntoViewIfNeeded($("model-viewer")[0]);
+            }
+
+        });
+    });
+
+    $("#id_search_by_name_on_deck").bind('killed', function() {
+      $("model-viewer").remove();
+    });
+</script>
+{% endblock %}

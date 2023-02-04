@@ -1,5 +1,5 @@
 from ajax_select import register, LookupChannel
-from .models import Taxon, Element
+from .models import Taxon, Element, Specimen
 from django.db.models import Q, Value
 from django.db.models.functions import Concat
 
@@ -34,3 +34,28 @@ class ElementLookup(LookupChannel):
 
     def can_add(self, user, argmodel):
         return True
+
+@register('specimens')
+class SpecimenLookup(LookupChannel):
+
+    model = Specimen
+
+    def get_query(self, q, request):
+        query = Q(element__name__icontains=q) | \
+                Q(skeleton__taxon__taxonRank__icontains=q) | \
+                Q(skeleton__taxon__species__icontains=q) | \
+                Q(skeleton__taxon__genus__icontains=q) | \
+                Q(skeleton__taxon__tribe__icontains=q) | \
+                Q(skeleton__taxon__subfamily__icontains=q) | \
+                Q(skeleton__taxon__family__icontains=q) | \
+                Q(skeleton__taxon__tclass__icontains=q) | \
+                Q(skeleton__specimen_number__icontains=q) | \
+                Q(skeleton__repository__code__icontains=q) | \
+                Q(skeleton__collection_code__icontains=q)
+        return Specimen.objects.filter(query).order_by("skeleton__taxon")
+
+    def format_item_display(self, item):
+        return u"<span class='tag'>%s | %s | %s</span>" % (item.skeleton.taxon, item.skeleton, item.__str__())
+
+    def format_match(self, item):
+        return u"<span class='tag'>%s | %s | %s</span>" % (item.skeleton.taxon, item.skeleton, item.__str__())

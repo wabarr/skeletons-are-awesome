@@ -22,12 +22,14 @@ from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
-    path('', views.Grid.as_view()),
+    path('', views.Search.as_view()),
+    path('grid/', views.Grid.as_view()),
     path('ajax_select/', include(ajax_select_urls)),
     path('grid/', views.Grid.as_view()),
     path('skeletons/', views.SkeletonListView.as_view(), name='skeleton-list'),
     path('specimen/<int:pk>/', views.SpecimenDetailView.as_view(),name='specimen-detail'),
     path('accounts/login/', auth_views.LoginView.as_view()),
     path('logout/', views.logout_view),
+    path('getGLB_url_for_pk/<int:pk>/', views.getGLBurl, name='get-GLB-url'),
     path('admin/', admin.site.urls)
 ]
