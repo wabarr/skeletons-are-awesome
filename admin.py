@@ -22,7 +22,7 @@ class SpecimenAdmin(admin.ModelAdmin):
     fields = ['filename','skeleton','element','side','specimen_label','dropbox_glb_file_path','dropbox_ply_file_path','scanned_by','date_scanned','machine']
     list_display = fields
     readonly_fields = ['filename']
-    form = make_ajax_form(Specimen, {'element': "elements"})
+    form = make_ajax_form(Specimen, {'element': "elements", 'skeleton': 'skeletons'})
     list_filter = ["side","skeleton__repository"]
     search_fields = ["skeleton__specimen_number","element__name","skeleton__taxon__genus", "skeleton__taxon__species", "skeleton__taxon__order", "skeleton__taxon__family", "skeleton__taxon__subfamily", "skeleton__taxon__tribe"]
     search_help_text = "Search by specimen number, element, or taxon"

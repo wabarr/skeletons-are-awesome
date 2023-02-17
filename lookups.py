@@ -1,5 +1,5 @@
 from ajax_select import register, LookupChannel
-from .models import Taxon, Element, Specimen
+from .models import Taxon, Element, Specimen, Skeleton
 from django.db.models import Q, Value
 from django.db.models.functions import Concat
 
@@ -59,3 +59,14 @@ class SpecimenLookup(LookupChannel):
 
     def format_match(self, item):
         return u"<span class='tag'>%s | %s | %s</span>" % (item.skeleton.taxon, item.skeleton, item.__str__())
+
+
+@register('skeletons')
+class SkeletonLookup(LookupChannel):
+
+    model = Skeleton
+
+    def get_query(self, q, request):
+        query = Q(specimen_number__icontains=q)
+        return Skeleton.objects.filter(query)
+
