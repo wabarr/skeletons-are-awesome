@@ -25,6 +25,7 @@ urlpatterns = [
     path('', views.Search.as_view()),
     path('grid/', views.Grid.as_view()),
     path('ajax_select/', include(ajax_select_urls)),
+    path('compare/', views.Compare.as_view()),
     path('grid/', views.Grid.as_view()),
     path('skeletons/', views.SkeletonListView.as_view(), name='skeleton-list'),
     path('specimen/<int:pk>/', views.SpecimenDetailView.as_view(),name='specimen-detail'),

@@ -1,0 +1,109 @@
+{% extends "skeletons/base.html" %}
+{% block extrastyle %}
+    <style>
+        .card {
+            border: none;
+        }
+        .error {
+            background-color: #ffb3ad;
+            padding: 10px;
+        }
+
+    </style>
+
+{% endblock %}
+{% block content %}
+
+<div class="container">
+<div class="row">
+    <div class="col-sm-12"><h3>Which two specimens do you want to compare?</h3></div>
+</div>
+<div class="row" id="searchbar-row">
+    <div class="col-lg-12" id="search-col">
+
+        {{ form.media }}
+        {{ form.search_by_name }}
+
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-lg-6" id="viewer-col">
+        <div class="card" id="viewer-card">
+            <div class="card-body viewer-card-body" id="viewer-card-body-0"></div>
+        </div>
+    </div>
+    <div class="col-lg-6" id="viewer-col">
+        <div class="card" id="viewer-card">
+            <div class="card-body viewer-card-body" id="viewer-card-body-1"></div>
+        </div>
+    </div>
+</div>
+</div> <!-- closes container -->
+
+
+
+
+
+{% endblock %}
+
+{% block custom_script %}
+<script>
+
+
+
+//function scrollIntoViewIfNeeded(target) {
+//    if (target.getBoundingClientRect().bottom > window.innerHeight) {
+//        target.scrollIntoView(false);
+//    }
+//
+//    if (target.getBoundingClientRect().top < 0) {
+//        target.scrollIntoView();
+//    }
+//}
+
+
+    $("#id_search_by_name_text").css("width", "100%").attr("placeholder", "Search by taxon, element, specimen ID");
+
+    $("#id_search_by_name_on_deck").bind('added', function() {
+        var idObject = $("#id_search_by_name").val().split("|")
+        var removedLast = idObject.splice(-1, 1)
+        var removedFirst = idObject.splice(0, 1)
+        var backgroundColors = ["#FFFFFF", "#FAFAFA"]
+        $(".error").remove();
+        for (index in idObject) {
+            if($("#viewer-card-body-"+ index).html() === ""); {
+                var id = idObject[index]
+                $.ajax({
+                //use AJAX to call the getGLBurl view to covert pk into a GLB URL
+                method: "GET",
+                url: "/getGLB_url_for_pk/".concat(id),
+                })
+                .done(function (data) {
+                    //console.log(data);
+                    if ("error" in data) {
+                        $("#viewer-card-body-"+ index).html("<p class='error'>" + data["error"] + "</p>");
+                        //scrollIntoViewIfNeeded($("model-viewer")[0]);
+                    } else {
+                        var URL = "https://dl.dropboxusercontent.com/s/".concat(data["url"]);
+                        console.log(backgroundColors[index]);
+                        $("#viewer-card-body-"+ index)
+                            .css("background-color",backgroundColors[index])
+                            .html("<model-viewer  src='" + URL + "' alt='3D model of bone' shadow-intensity='1' camera-controls='' auto-rotate='' ar='' data-js-focus-visible='' ar-status='not-presenting' mode='no-cors'></model-viewer>");
+                        $("#id_search_by_name_on_deck_"+ id).css("background-color",backgroundColors[index])
+                    }
+
+                });
+                }
+
+        }
+    });
+
+    $("#id_search_by_name_on_deck").bind('killed', function() {
+      $(".viewer-card-body").css('background-color', 'transparent');
+      $("model-viewer").remove();
+      $(".error").remove();
+      $(".ui-icon-trash").trigger("click"); //trigger click event for all elements
+    });
+</script>
+{% endblock %}

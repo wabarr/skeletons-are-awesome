@@ -5,7 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import HttpResponseRedirect
 from django.contrib.auth import logout
 from django.views.generic.edit import FormView
-from skeletons.forms import SpecimenFormForAJAXselect
+from skeletons.forms import SpecimenFormForAJAXselect, MultipleSpecimenFormForAJAXselect
 from django.http import JsonResponse
 from skeletons.models import Specimen
 
@@ -20,7 +20,9 @@ def getGLBurl(request, pk):
     else:
         return JsonResponse({"error":"Can't find the link to the scan file"})
 
-
+class Compare(LoginRequiredMixin,FormView):
+    template_name = "skeletons/compare.html"
+    form_class = MultipleSpecimenFormForAJAXselect
 class Grid(LoginRequiredMixin, ListView):
     template_name = 'skeletons/grid.html'
     queryset = Specimen.objects.exclude(dropbox_glb_file_path__exact="").order_by("skeleton__taxon")
