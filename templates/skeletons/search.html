@@ -76,7 +76,7 @@ function scrollIntoViewIfNeeded(target) {
                 scrollIntoViewIfNeeded($("model-viewer")[0]);
             } else {
                 var URL =  "https://dl.dropboxusercontent.com/s/".concat(data["url"]);
-                $("#insert-modelviewer-here").before("<model-viewer  src='" + URL + "' alt='3D model of bone' shadow-intensity='1' camera-controls='' auto-rotate='' ar='' data-js-focus-visible='' ar-status='not-presenting' mode='no-cors'></model-viewer>");
+                $("#insert-modelviewer-here").before("<model-viewer  src='" + URL + "' alt='3D model of bone' shadow-intensity='1' camera-controls='' ar='' data-js-focus-visible='' ar-status='not-presenting' mode='no-cors'></model-viewer>");
                 scrollIntoViewIfNeeded($("model-viewer")[0]);
             }
 
