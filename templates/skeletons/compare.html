@@ -69,7 +69,7 @@
         var idObject = $("#id_search_by_name").val().split("|")
         var removedLast = idObject.splice(-1, 1)
         var removedFirst = idObject.splice(0, 1)
-        var backgroundColors = ["#FFFFFF", "#FAFAFA"]
+        var backgroundColors = ["#878787", "#222222"]
         $(".error").remove();
         for (index in idObject) {
             if($("#viewer-card-body-"+ index).html() === ""); {
@@ -89,7 +89,7 @@
                         console.log(backgroundColors[index]);
                         $("#viewer-card-body-"+ index)
                             .css("background-color",backgroundColors[index])
-                            .html("<model-viewer  src='" + URL + "' alt='3D model of bone' shadow-intensity='1' camera-controls='' auto-rotate='' ar='' data-js-focus-visible='' ar-status='not-presenting' mode='no-cors'></model-viewer>");
+                            .html("<model-viewer  src='" + URL + "' alt='3D model of bone' shadow-intensity='1' camera-controls='' ar='' data-js-focus-visible='' ar-status='not-presenting' mode='no-cors'></model-viewer>");
                         $("#id_search_by_name_on_deck_"+ id).css("background-color",backgroundColors[index])
                     }
 
