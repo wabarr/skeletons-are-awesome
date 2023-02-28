@@ -8,11 +8,22 @@
                   <h3 class="card-title">{{ object.skeleton }}</h3>
                   <h4>{{ object }}</h4>
                   <h4>{% if object.skeleton.taxon.taxonRank in 'species,subspecies' %}<i>{% endif %}{{ object.skeleton.taxon }}{% if object.skeleton.taxon.taxonRank in 'species,subspecies' %}</i>{% endif %}</h4>
-                  <model-viewer src="https://dl.dropboxusercontent.com/s/{{ object.dropbox_glb_file_path }}" alt="3D model of {{ object.taxon }} {{ object }}" shadow-intensity="1" camera-controls="" ar="" data-js-focus-visible="" ar-status="not-presenting" mode="no-cors" >
+                  <model-viewer id="viewer" src="https://dl.dropboxusercontent.com/s/{{ object.dropbox_glb_file_path }}" alt="3D model of {{ object.taxon }} {{ object }}" shadow-intensity="1" camera-controls="" ar="" data-js-focus-visible="" ar-status="not-presenting" mode="no-cors" >
 				</model-viewer>
 		  </div>
 	  </div>
 	</div>
 
+    <script>
+    const modelViewer = document.querySelector("model-viewer");
+
+    modelViewer.addEventListener("load", (ev) => {
+        const [material] = modelViewer.model.materials;
+        material.pbrMetallicRoughness.setBaseColorFactor("#AA9868");
+        material.pbrMetallicRoughness.setRoughnessFactor('0.5')
+    });
+
+
+    </script>
 
 {% endblock %}

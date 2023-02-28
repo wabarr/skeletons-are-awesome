@@ -77,6 +77,13 @@ function scrollIntoViewIfNeeded(target) {
             } else {
                 var URL =  "https://dl.dropboxusercontent.com/s/".concat(data["url"]);
                 $("#insert-modelviewer-here").before("<model-viewer  src='" + URL + "' alt='3D model of bone' shadow-intensity='1' camera-controls='' ar='' data-js-focus-visible='' ar-status='not-presenting' mode='no-cors'></model-viewer>");
+                const modelViewer = document.querySelector("model-viewer");
+
+                modelViewer.addEventListener("load", (ev) => {
+                const [material] = modelViewer.model.materials;
+                material.pbrMetallicRoughness.setBaseColorFactor("#AA9868");
+                material.pbrMetallicRoughness.setRoughnessFactor('0.5');
+    });
                 scrollIntoViewIfNeeded($("model-viewer")[0]);
             }
 
@@ -88,5 +95,8 @@ function scrollIntoViewIfNeeded(target) {
       $(".error").remove();
       $
     });
+
+
+
 </script>
 {% endblock %}

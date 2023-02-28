@@ -27,7 +27,7 @@
     </div>
 
 </div>
-<div class="row">
+<div class="row" id="viewer-row">
     <div class="col-lg-6" id="viewer-col">
         <div class="card" id="viewer-card">
             <div class="card-body viewer-card-body" id="viewer-card-body-0"></div>
@@ -69,7 +69,7 @@
         var idObject = $("#id_search_by_name").val().split("|")
         var removedLast = idObject.splice(-1, 1)
         var removedFirst = idObject.splice(0, 1)
-        var backgroundColors = ["#878787", "#222222"]
+        var backgroundColors = ["#ffffff", "rgba(239,239,239,0.76)"]
         $(".error").remove();
         for (index in idObject) {
             if($("#viewer-card-body-"+ index).html() === ""); {
@@ -89,14 +89,24 @@
                         console.log(backgroundColors[index]);
                         $("#viewer-card-body-"+ index)
                             .css("background-color",backgroundColors[index])
-                            .html("<model-viewer  src='" + URL + "' alt='3D model of bone' shadow-intensity='1' camera-controls='' ar='' data-js-focus-visible='' ar-status='not-presenting' mode='no-cors'></model-viewer>");
-                        $("#id_search_by_name_on_deck_"+ id).css("background-color",backgroundColors[index])
+                            .html(`<model-viewer id = 'model-viewer-${ index }' src='${ URL }' alt='3D model of bone' shadow-intensity='1' camera-controls='' ar='' data-js-focus-visible='' ar-status='not-presenting' mode='no-cors'></model-viewer>`);
+                            const modelViewer = document.querySelector("#model-viewer-" + index);
+                            //console.log(modelViewer)
+                            modelViewer.addEventListener("load", (ev) => {
+                                const [material] = modelViewer.model.materials;
+                                material.pbrMetallicRoughness.setBaseColorFactor("#AA9868");
+                                material.pbrMetallicRoughness.setRoughnessFactor('0.5')
+                            });
+
+
+                            $("#id_search_by_name_on_deck_"+ id).css("background-color",backgroundColors[index])
                     }
 
                 });
                 }
 
         }
+        //document.getElementById("viewer-row").dispatchEvent(event)
     });
 
     $("#id_search_by_name_on_deck").bind('killed', function() {
@@ -105,5 +115,18 @@
       $(".error").remove();
       $(".ui-icon-trash").trigger("click"); //trigger click event for all elements
     });
+
+
+    {#const event = new Event("modelviewer-added");#}
+    {#//#viewer-row listens for "modelviewer-added" event#}
+    {#document.getElementById("viewer-row").addEventListener(#}
+    {#    "modelviewer-added",#}
+    {#    (e) => {#}
+    {##}
+    {#});#}
+    {#    },#}
+    {#    false#}
+    {#);#}
+
 </script>
 {% endblock %}
