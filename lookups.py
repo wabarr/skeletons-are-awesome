@@ -19,6 +19,9 @@ class TaxonLookup(LookupChannel):
     def can_add(self, user, argmodel):
         return True
 
+    def check_auth(self, request):
+        return True
+
 
 @register('elements')
 class ElementLookup(LookupChannel):
@@ -33,6 +36,9 @@ class ElementLookup(LookupChannel):
         return u"<span class='tag'>%s</span>" % item.__str__()
 
     def can_add(self, user, argmodel):
+        return True
+
+    def check_auth(self, request):
         return True
 
 @register('specimens')
@@ -60,6 +66,9 @@ class SpecimenLookup(LookupChannel):
     def format_match(self, item):
         return u"<span class='tag'>%s | %s | %s</span>" % (item.skeleton.taxon, item.skeleton, item.__str__())
 
+    def check_auth(self, request):
+        return True
+
 
 @register('skeletons')
 class SkeletonLookup(LookupChannel):
@@ -69,4 +78,7 @@ class SkeletonLookup(LookupChannel):
     def get_query(self, q, request):
         query = Q(specimen_number__icontains=q)
         return Skeleton.objects.filter(query)
+
+    def check_auth(self, request):
+        return True
 
