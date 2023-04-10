@@ -15,17 +15,23 @@
 {% block content %}
 
 <div class="container">
-<div class="row">
-    <div class="col"><h3>What kind of bones are you looking for?</h3></div>
-</div>
-<div class="row" id="row-contains-everything">
-    <div class="col-md-8" id="col-contains-searchbar">
+    <div class="row">
+        <div class="col"><h3>What kind of bones are you looking for?</h3></div>
+    </div>
+    <div class="row">
+        <div class="col" id="col-contains-searchbar">
 
         {{ form.media }}
         {{ form.search_by_name }}
 
+        </div>
     </div>
-        <div class="col-sm-4" id="viewer-col">
+    <div class="row">
+
+        <div class="col" id="viewer-col">
+        </div>
+    </div>
+    <div class="row">
         <div class="card" id="viewer-card">
 
             <div class="card-body" id="viewer-card-body">
@@ -37,7 +43,7 @@
 
         </div>
     </div>
-</div> <!-- closes row-contains-everything -->
+
 {% if paginator %} {% include "skeletons/pagination.html" %}{% endif %}
 </div> <!-- closes container -->
 
