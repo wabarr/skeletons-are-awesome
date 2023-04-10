@@ -16,24 +16,35 @@ def getGLBurl(request, pk):
     #into the GLB file path needed to populate the 3D model viewer
     ob = Specimen.objects.get(pk=pk)
     if ob.dropbox_glb_file_path:
-        return JsonResponse({"url":ob.dropbox_glb_file_path})
+        if ob.side:
+            elem = ob.side + " " + ob.element.__str__()
+        else:
+            elem = ob.element.__str__()
+        return JsonResponse({"url": ob.dropbox_glb_file_path,
+                             "element": elem,
+                             "taxon": ob.skeleton.taxon.__str__(),
+                             "repo": ob.skeleton.repository.__str__(),
+                             "specID": ob.skeleton.specimen_number})
     else:
         return JsonResponse({"error":"Can't find the link to the scan file"})
 
-class Compare(LoginRequiredMixin,FormView):
+#class Compare(LoginRequiredMixin,FormView):
+class Compare(FormView):
     template_name = "skeletons/compare.html"
     form_class = MultipleSpecimenFormForAJAXselect
-class Grid(LoginRequiredMixin, ListView):
+#class Grid(LoginRequiredMixin, ListView):
+class Grid(ListView):
     template_name = 'skeletons/grid.html'
     queryset = Specimen.objects.exclude(dropbox_glb_file_path__exact="").order_by("skeleton__taxon")
     paginate_by = 18
 
-class Search(LoginRequiredMixin, FormView):
+class Search(FormView):
+#class Search(LoginRequiredMixin, FormView):
     template_name = 'skeletons/search.html'
     form_class = SpecimenFormForAJAXselect
 
-
-class SkeletonListView(LoginRequiredMixin,ListView):
+class SkeletonListView(ListView):
+#class SkeletonListView(LoginRequiredMixin,ListView):
     model = Skeleton
     paginate_by = 25
 
@@ -68,7 +79,9 @@ class SkeletonListView(LoginRequiredMixin,ListView):
         context["genus"] = Skeleton.objects.values('taxon__genus').distinct()
         return(context)
 
-class SpecimenDetailView(LoginRequiredMixin,DetailView):
+class SpecimenDetailView(DetailView):
+
+#class SpecimenDetailView(LoginRequiredMixin,DetailView):
     model = Specimen
 
 def logout_view(request):

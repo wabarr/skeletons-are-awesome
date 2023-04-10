@@ -27,10 +27,14 @@
     </div>
         <div class="col-sm-4" id="viewer-col">
         <div class="card" id="viewer-card">
-            <div class="card-body" id="viewer-card-body">
 
+            <div class="card-body" id="viewer-card-body">
+                <h4 class="card-title"><i><span id="taxon">Gazella dorcas</span></i></h4>
+                <p><span id="repo">USNM</span> <span id="specID">325878</span> | <span id="element">Cranium</span></p>
+                <model-viewer  src= 'https://dl.dropboxusercontent.com/s/g4n3awekzxtam3c/USNM_325878_Gazella_dorcas_male_cranium_.glb?dl=0' alt='3D model of bone' shadow-intensity='1' camera-controls='' ar='' data-js-focus-visible='' ar-status='not-presenting' mode='no-cors'></model-viewer>
                 <span id="insert-modelviewer-here"></span>
             </div>
+
         </div>
     </div>
 </div> <!-- closes row-contains-everything -->
@@ -46,7 +50,14 @@
 {% block custom_script %}
 <script>
 
-
+function setMaterialParams() {
+    const modelViewer = document.querySelector("model-viewer");
+    modelViewer.addEventListener("load", (ev) => {
+        const [material] = modelViewer.model.materials;
+        material.pbrMetallicRoughness.setBaseColorFactor("#AA9868");
+        material.pbrMetallicRoughness.setRoughnessFactor('0.5');
+    });
+}
 
 function scrollIntoViewIfNeeded(target) {
     if (target.getBoundingClientRect().bottom > window.innerHeight) {
@@ -77,13 +88,11 @@ function scrollIntoViewIfNeeded(target) {
             } else {
                 var URL =  "https://dl.dropboxusercontent.com/s/".concat(data["url"]);
                 $("#insert-modelviewer-here").before("<model-viewer  src='" + URL + "' alt='3D model of bone' shadow-intensity='1' camera-controls='' ar='' data-js-focus-visible='' ar-status='not-presenting' mode='no-cors'></model-viewer>");
-                const modelViewer = document.querySelector("model-viewer");
-
-                modelViewer.addEventListener("load", (ev) => {
-                const [material] = modelViewer.model.materials;
-                material.pbrMetallicRoughness.setBaseColorFactor("#AA9868");
-                material.pbrMetallicRoughness.setRoughnessFactor('0.5');
-    });
+                $("#taxon").html(data["taxon"]);
+                $("#element").html(data["element"]);
+                $("#repo").html(data["repo"]);
+                $("#specID").html(data["specID"]);
+                setMaterialParams();
                 scrollIntoViewIfNeeded($("model-viewer")[0]);
             }
 
@@ -96,6 +105,10 @@ function scrollIntoViewIfNeeded(target) {
       $
     });
 
+    window.onload = (event) => {
+        // set the material parameters on first load
+        setMaterialParams();
+    };
 
 
 </script>
