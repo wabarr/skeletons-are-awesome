@@ -209,10 +209,12 @@ class Specimen(models.Model):
     side = models.CharField(max_length=100, blank=True, choices=SIDES.choices)
     specimen_label = models.CharField(max_length=100, blank=True, help_text="identifying label physically inked on specimen")
     dropbox_glb_file_path = models.CharField(max_length=200, blank=True, help_text="path to public link on dropbox for .glb file, only the part after the /s/")
+    DO_spaces_glb_file_path = models.CharField(max_length=200, blank=True, help_text="path to public link on DO spaces for .glb file")
     dropbox_ply_file_path = models.CharField(max_length=200, blank=True, help_text="path to public link on dropbox for full size .ply file, only the part after the /s/")
     scanned_by = models.CharField(max_length=100, help_text="the name of the person who did the scan")
     date_scanned = models.DateField(blank=True, null=True)
     machine = models.ForeignKey(Scanner, on_delete=models.CASCADE, help_text="the scanner used to make the scan")
+
 
     def __str__(self):
         return("{} {}".format(self.side, self.element))

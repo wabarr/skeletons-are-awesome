@@ -15,18 +15,23 @@ def getGLBurl(request, pk):
     # it is used by the search.html template to convert the pk from the ajax_select query
     #into the GLB file path needed to populate the 3D model viewer
     ob = Specimen.objects.get(pk=pk)
-    if ob.dropbox_glb_file_path:
-        if ob.side:
-            elem = ob.side + " " + ob.element.__str__()
-        else:
-            elem = ob.element.__str__()
-        return JsonResponse({"url": ob.dropbox_glb_file_path,
+    if ob.DO_spaces_glb_file_path:
+        url = ob.DO_spaces_glb_file_path
+    elif ob.dropbox_glb_file_path:
+        url = "https://dl.dropboxusercontent.com/s/" + ob.dropbox_glb_file_path
+    else:
+        return JsonResponse({"error":"Can't find the link to the scan file"})
+
+    if ob.side:
+        elem = ob.side + " " + ob.element.__str__()
+    else:
+        elem = ob.element.__str__()
+
+    return JsonResponse({"url": url,
                              "element": elem,
                              "taxon": ob.skeleton.taxon.__str__(),
                              "repo": ob.skeleton.repository.__str__(),
                              "specID": ob.skeleton.specimen_number})
-    else:
-        return JsonResponse({"error":"Can't find the link to the scan file"})
 
 #class Compare(LoginRequiredMixin,FormView):
 class Compare(FormView):

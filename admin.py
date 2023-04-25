@@ -19,7 +19,7 @@ class RepositoryAdmin(admin.ModelAdmin):
     fields = ['code','full_name', 'notes']
 
 class SpecimenAdmin(admin.ModelAdmin):
-    fields = ['filename','skeleton','element','side','specimen_label','dropbox_glb_file_path','dropbox_ply_file_path','scanned_by','date_scanned','machine']
+    fields = ['filename','skeleton','element','side','specimen_label','dropbox_glb_file_path','dropbox_ply_file_path','DO_spaces_glb_file_path','scanned_by','date_scanned','machine']
     list_display = fields
     readonly_fields = ['filename']
     form = make_ajax_form(Specimen, {'element': "elements", 'skeleton': 'skeletons'})

@@ -92,7 +92,7 @@ function scrollIntoViewIfNeeded(target) {
                 $("#insert-modelviewer-here").before("<p class='error'>" + data["error"] + "</p>");
                 scrollIntoViewIfNeeded($("model-viewer")[0]);
             } else {
-                var URL =  "https://dl.dropboxusercontent.com/s/".concat(data["url"]);
+                var URL = data["url"];
                 $("#insert-modelviewer-here").before("<model-viewer  src='" + URL + "' alt='3D model of bone' shadow-intensity='1' camera-controls='' ar='' data-js-focus-visible='' ar-status='not-presenting' mode='no-cors'></model-viewer>");
                 $("#taxon").html(data["taxon"]);
                 $("#element").html(data["element"]);
