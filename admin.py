@@ -5,9 +5,9 @@ from ajax_select import make_ajax_form
 
 
 class SkeletonAdmin(admin.ModelAdmin):
-    fields = ['repository', 'collection_code', 'specimen_number', 'taxon','sex','notes']
+    fields = ['repository', 'collection_code', 'specimen_identifier', 'taxon','sex','notes']
     list_display = ['__str__','taxon','sex','notes']
-    search_fields = ["specimen_number","taxon__genus", "taxon__species", "taxon__order", "taxon__family", "taxon__subfamily", "taxon__tribe"]
+    search_fields = ["specimen_identifier","taxon__genus", "taxon__species", "taxon__order", "taxon__family", "taxon__subfamily", "taxon__tribe"]
     form = make_ajax_form(Skeleton,{'taxon':"taxa"})
     search_help_text = "Search by specimen number or taxon"
     list_filter = ["repository"]
@@ -24,7 +24,7 @@ class SpecimenAdmin(admin.ModelAdmin):
     readonly_fields = ['filename']
     form = make_ajax_form(Specimen, {'element': "elements", 'skeleton': 'skeletons'})
     list_filter = ["side","skeleton__repository"]
-    search_fields = ["skeleton__specimen_number","element__name","skeleton__taxon__genus", "skeleton__taxon__species", "skeleton__taxon__order", "skeleton__taxon__family", "skeleton__taxon__subfamily", "skeleton__taxon__tribe"]
+    search_fields = ["skeleton__specimen_identifier","element__name","skeleton__taxon__genus", "skeleton__taxon__species", "skeleton__taxon__order", "skeleton__taxon__family", "skeleton__taxon__subfamily", "skeleton__taxon__tribe"]
     search_help_text = "Search by specimen number, element, or taxon"
 
 class ElementAdmin(admin.ModelAdmin):

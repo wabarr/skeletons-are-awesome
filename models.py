@@ -189,17 +189,17 @@ class Skeleton(models.Model):
     SEXES = [('female', 'Female'), ('male', 'Male'), ('sex unknown', 'Sex Unknown')]
     repository = models.ForeignKey(Repository, on_delete=models.CASCADE)
     collection_code = models.CharField(max_length=100, blank=True)
-    specimen_number = models.PositiveIntegerField()
+    specimen_identifier = models.CharField(max_length=100, help_text="This is usually a numeric identifier for the individual skeleton issued by the museum. Combined with the repository and collection code this identifies the indivdual (e.g. USNM-61342)")
     taxon = models.ForeignKey(Taxon, on_delete=models.CASCADE)
     sex = models.CharField(max_length=50, blank=False, default='sex unknown', choices=SEXES)
     notes = models.CharField(max_length=300,  blank=True)
 
     def __str__(self):
-        return "{}-{}-{}".format(self.repository,self.collection_code,self.specimen_number).replace("--","-")
+        return "{}-{}-{}".format(self.repository, self.collection_code, self.specimen_identifier).replace("--", "-")
 
     class Meta:
         constraints=[
-            models.UniqueConstraint(fields=['repository', 'collection_code', 'specimen_number'], name="unique skeleton")
+            models.UniqueConstraint(fields=['repository', 'collection_code', 'specimen_identifier'], name="unique skeleton")
             ]
 
 class Specimen(models.Model):
@@ -223,7 +223,7 @@ class Specimen(models.Model):
     def filename(self):
         fname = "_".join([self.skeleton.repository.code,
                           self.skeleton.collection_code,
-                          str(self.skeleton.specimen_number),
+                          str(self.skeleton.specimen_identifier),
                           self.skeleton.taxon.genus,
                           self.skeleton.taxon.species,
                           self.skeleton.sex,

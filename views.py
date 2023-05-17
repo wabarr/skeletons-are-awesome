@@ -31,7 +31,7 @@ def getGLBurl(request, pk):
                              "element": elem,
                              "taxon": ob.skeleton.taxon.__str__(),
                              "repo": ob.skeleton.repository.__str__(),
-                             "specID": ob.skeleton.specimen_number})
+                             "specID": ob.skeleton.specimen_identifier})
 
 #class Compare(LoginRequiredMixin,FormView):
 class Compare(FormView):

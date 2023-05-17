@@ -55,7 +55,7 @@ class SpecimenLookup(LookupChannel):
                 Q(skeleton__taxon__subfamily__icontains=q) | \
                 Q(skeleton__taxon__family__icontains=q) | \
                 Q(skeleton__taxon__tclass__icontains=q) | \
-                Q(skeleton__specimen_number__icontains=q) | \
+                Q(skeleton__specimen_identifier__icontains=q) | \
                 Q(skeleton__repository__code__icontains=q) | \
                 Q(skeleton__collection_code__icontains=q)
         return Specimen.objects.filter(query).order_by("skeleton__taxon")
@@ -76,7 +76,7 @@ class SkeletonLookup(LookupChannel):
     model = Skeleton
 
     def get_query(self, q, request):
-        query = Q(specimen_number__icontains=q)
+        query = Q(specimen_identifier__icontains=q)
         return Skeleton.objects.filter(query)
 
     def check_auth(self, request):
