@@ -48,12 +48,16 @@ class ReferenceAdmin(admin.ModelAdmin):
     list_display = ["authorshortstring", "year"]
     list_editable = ["year"]
 
-admin.site.register(Skeleton, SkeletonAdmin)
-admin.site.register(Scanner, ScannerAdmin)
-admin.site.register(Specimen, SpecimenAdmin)
-admin.site.register(Repository, RepositoryAdmin)
-admin.site.register(Element, ElementAdmin)
-admin.site.register(Reference, ReferenceAdmin)
-admin.site.register(Taxon,TaxonAdmin)
 
-admin.site.site_header = 'Skeletons are Awesome Admin Site'
+class SkeletonAdminSite(admin.AdminSite):
+    site_header = "Skeletons are Awesome Admin"
+
+skeletonAdminSite = SkeletonAdminSite(name='skeleton-admin')
+
+skeletonAdminSite.register(Skeleton, SkeletonAdmin)
+skeletonAdminSite.register(Scanner, ScannerAdmin)
+skeletonAdminSite.register(Specimen, SpecimenAdmin)
+skeletonAdminSite.register(Repository, RepositoryAdmin)
+skeletonAdminSite.register(Element, ElementAdmin)
+skeletonAdminSite.register(Reference, ReferenceAdmin)
+skeletonAdminSite.register(Taxon,TaxonAdmin)
