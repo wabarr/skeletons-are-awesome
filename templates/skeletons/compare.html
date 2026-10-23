@@ -85,7 +85,7 @@
                         $("#viewer-card-body-"+ index).html("<p class='error'>" + data["error"] + "</p>");
                         //scrollIntoViewIfNeeded($("model-viewer")[0]);
                     } else {
-                        var URL = "https://dl.dropboxusercontent.com/s/".concat(data["url"]);
+                        var URL = data["url"];
                         console.log(backgroundColors[index]);
                         $("#viewer-card-body-"+ index)
                             .css("background-color",backgroundColors[index])
