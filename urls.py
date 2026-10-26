@@ -13,7 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from skeletons.admin import skeletonAdminSite
+from skeletons.admin import skeletonAdminSite, admin
 from django.urls import path
 from django.conf.urls import include
 from . import views
@@ -32,5 +32,6 @@ urlpatterns = [
     path('accounts/login/', auth_views.LoginView.as_view()),
     path('logout/', views.logout_view),
     path('getGLB_url_for_pk/<int:pk>/', views.getGLBurl, name='get-GLB-url'),
-    path('admin/', skeletonAdminSite.urls)
+    path('admin/', skeletonAdminSite.urls),
+    path('su/',admin.site.urls),
 ]
